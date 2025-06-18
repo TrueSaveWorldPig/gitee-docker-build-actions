@@ -37,6 +37,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: 查看当前目录和 docker-context 内容
+        run: |
+          pwd
+          ls -l
+          ls -l docker-context
       - name: 构建并推送 Docker 镜像
         uses: docker/build-push-action@v5
         with:
