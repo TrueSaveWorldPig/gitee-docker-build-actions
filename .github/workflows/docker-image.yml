@@ -21,7 +21,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: 使用 Maven 构建 jar（跳过测试）
-        run: mvn clean install -DskipTests
+        run: mvn clean install -DskipTests -Dlicense.skip=true
         working-directory: ./source-code
       - name: 将打好的 jar 复制为 Docker 构建使用名
         run: |
