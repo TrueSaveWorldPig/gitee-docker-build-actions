@@ -5,7 +5,7 @@ on:
 
 env:
   BUILD_VERSION: 4.0.2
-  IMAGE_NAME: ${{ secrets.DOCKER_HUB_USERNAME }}/thingsboard
+  IMAGE_NAME: ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_NAMESPACE }}/${{ secrets.REGISTRY_REPO }}/thingsboard
 
 jobs:
   build:
@@ -32,16 +32,17 @@ jobs:
         run: ls -l docker-context
       - name: 设置 Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: 登陆 Docker Hub
+      - name: 登录到国内镜像仓库
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: 查看当前目录和 docker-context 内容
-        run: |
-          pwd
-          ls -l
-          ls -l docker-context
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+#      - name: 登陆 Docker Hub
+#        uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+#          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: 构建并推送 Docker 镜像
         uses: docker/build-push-action@v5
         with:
@@ -52,4 +53,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           build-args: |
             BUILD_VERSION=${{ env.BUILD_VERSION }}
-            MAINTAINER=${{ secrets.DOCKER_HUB_USERNAME }}
+            MAINTAINER=${{ secrets.REGISTRY_USERNAME }}
