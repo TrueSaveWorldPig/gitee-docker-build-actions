@@ -45,7 +45,7 @@ jobs:
       - name: 构建并推送 Docker 镜像
         uses: docker/build-push-action@v5
         with:
-          context: ./docker-context
+          context: docker-context
           file: docker-context/Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.BUILD_VERSION }}
