@@ -27,6 +27,7 @@ jobs:
         run: |
           mkdir docker-context
           cp ./source-code/application/target/thingsboard-${BUILD_VERSION}-boot.jar docker-context/
+          cp ./source-code/application/src/main/conf/logback.xml docker-context/
           cp ./source-code/Dockerfile docker-context/
       - name: 查看 docker-context 目录内容
         run: ls -l docker-context
