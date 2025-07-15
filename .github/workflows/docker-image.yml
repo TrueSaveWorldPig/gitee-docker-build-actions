@@ -20,6 +20,13 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+      - name: 缓存 Maven 本地仓库
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
       - name: 使用 Maven 构建 jar（跳过测试）
         run: mvn clean install -DskipTests -Dlicense.skip=true
         working-directory: ./source-code
