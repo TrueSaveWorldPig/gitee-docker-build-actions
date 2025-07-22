@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: 拉取Gitee仓库内容
         run: |
-          git clone --branch master https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_TOKEN }}@gitee.com/taozhang09/thingsboard-gateway.git .
+          git clone --branch master https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_TOKEN }}@gitee.com/taozhang09/thingsboard-gateway.git source-code
+          cd source-code
       - name: Set up QEMU (for cross-platform builds)
         uses: docker/setup-qemu-action@v3
       - name: 设置 Docker Build x
