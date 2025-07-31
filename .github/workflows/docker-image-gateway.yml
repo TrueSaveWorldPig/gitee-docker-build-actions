@@ -15,11 +15,13 @@ jobs:
       - name: 拉取Gitee仓库内容
         run: |
           git clone --branch master https://${{ secrets.GITEE_USERNAME }}:${{ secrets.GITEE_TOKEN }}@gitee.com/taozhang09/thingsboard-gateway.git source-code
-          cd source-code
+
       - name: Set up QEMU (for cross-platform builds)
         uses: docker/setup-qemu-action@v3
+
       - name: 设置 Docker Build x
         uses: docker/setup-buildx-action@v3
+
       - name: 登录到国内镜像仓库
         uses: docker/login-action@v3
         with:
@@ -34,7 +36,7 @@ jobs:
       - name: 构建并推送 Docker 镜像
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./source-code
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ env.BUILD_VERSION }}
           platforms: linux/amd64,linux/arm64
