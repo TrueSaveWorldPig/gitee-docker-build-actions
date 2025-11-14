@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 检查磁盘空间
+        run: df -h
+      - name: 清理磁盘空间
+        run: |
+          docker system prune -af
+          df -h
 
       - name: 安装 tree（可选）
         run: sudo apt-get update && sudo apt-get install tree -y
